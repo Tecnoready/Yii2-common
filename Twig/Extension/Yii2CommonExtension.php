@@ -12,6 +12,7 @@
 namespace Tecnoready\Yii2\Common\Twig\Extension;
 
 use Twig_Extension;
+use Yii;
 
 /**
  * Extension de cosas comunes
@@ -20,16 +21,23 @@ use Twig_Extension;
  */
 class Yii2CommonExtension extends Twig_Extension 
 {
-    private $config;
+    private $options;
+    private $breadcrumbs;
     
-    public function __construct(array $config = array()) {
-        $this->config = $config;
+    public function __construct(array $options = array()) {
+        //$basePath = dirname(dirname(__DIR__));
+        $resolver = new \Symfony\Component\OptionsResolver\OptionsResolver();
+        $resolver->setDefaults([
+           "twig.breadcrumb.template" => "@vendor/tecnoready/yii2-common/Views/twig/breadcrumb.twig"
+        ]);
+        $this->options = $resolver->resolve($options);
     }
     
     public function getFunctions() 
     {
         $functions = [];
-        $functions[] = new \Twig_SimpleFunction('breadcrumb', array($this,'breadcrumb'), array('is_safe' => array('html')));
+        $functions[] = new \Twig_SimpleFunction('breadcrumb', array($this,'breadcrumb'), array());
+        $functions[] = new \Twig_SimpleFunction('breadcrumb_render', array($this,'breadcrumbRender'), array('is_safe' => array('html')));
         return $functions;
     }
     
@@ -58,11 +66,19 @@ class Yii2CommonExtension extends Twig_Extension
             }
             $parameters[] = $item;
         }
-        $this->config["twig"]["breadcrumb"]["template"];
-        $emplate = $this->container->getParameter('tecnocreaciones_tools.twig.breadcrumb.template');
-        return $this->container->get('templating')->render($emplate, 
+        
+        if($this->breadcrumbs === null){
+            $this->breadcrumbs = [];
+        }
+        $this->breadcrumbs = array_merge($this->breadcrumbs, $parameters);
+    }
+    public function breadcrumbRender(){
+        $template = $this->options["twig.breadcrumb.template"];
+        $breadcrumbs = $this->breadcrumbs;
+        $this->breadcrumbs = [];
+        return Yii::$container->get("twig")->render($template, 
             array(
-                'breadcrumbs' => $parameters,
+                'breadcrumbs' => $breadcrumbs,
             )
         );
     }

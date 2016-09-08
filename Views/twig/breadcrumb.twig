@@ -1,0 +1,17 @@
+{% if breadcrumbs|length > 0 %}
+    <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+            {% if loop.last == true %}
+                <li class="active">
+                    <strong>{{ breadcrumb.label }}</strong>
+                </li>
+            {% else %}
+                <li>
+                    {% if breadcrumb.link is not null %}<a href="{{ breadcrumb.link }}">{% endif %}
+                        {{ breadcrumb.label }}
+                        {%  if breadcrumb.link is not null %}</a>{% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+{% endif %}
