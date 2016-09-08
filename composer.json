@@ -1,0 +1,19 @@
+{
+  "name": "tecnoready/yii2-common",
+  "description": "Common tools in yii2 projects",
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/Tecnoready/Yii2-common",
+  "type": "yii2-extension",
+  "authors": [
+    {
+      "name": "Carlos Mendoza",
+      "email": "inhack20@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": { "Tecnoready\\Yii2\\Common\\": "" },
+  }
+}
