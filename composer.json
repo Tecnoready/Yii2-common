@@ -14,6 +14,6 @@
   "require": {
   },
   "autoload": {
-    "psr-4": { "Tecnoready\\Yii2\\Common\\": "" },
+    "psr-4": { "Tecnoready\\Yii2\\Common\\": "" }
   }
 }
