@@ -20,6 +20,12 @@ use Twig_Extension;
  */
 class Yii2CommonExtension extends Twig_Extension 
 {
+    private $config;
+    
+    public function __construct(array $config = array()) {
+        $this->config = $config;
+    }
+    
     public function getFunctions() 
     {
         $functions = [];
@@ -52,7 +58,7 @@ class Yii2CommonExtension extends Twig_Extension
             }
             $parameters[] = $item;
         }
-        
+        $this->config["twig"]["breadcrumb"]["template"];
         $emplate = $this->container->getParameter('tecnocreaciones_tools.twig.breadcrumb.template');
         return $this->container->get('templating')->render($emplate, 
             array(
