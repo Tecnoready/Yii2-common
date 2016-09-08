@@ -12,6 +12,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
+    "symfony/options-resolver": "^3.1"
   },
   "autoload": {
     "psr-4": { "Tecnoready\\Yii2\\Common\\": "" }
