@@ -65,6 +65,8 @@ class BreadcrumbManager {
             $this->breadcrumbs = [];
         }
         $this->breadcrumbs = array_merge($this->breadcrumbs, $parameters);
+        
+        return $this;
     }
     
     public function breadcrumbRender(){
