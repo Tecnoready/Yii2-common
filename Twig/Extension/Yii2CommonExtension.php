@@ -33,8 +33,8 @@ class Yii2CommonExtension extends Twig_Extension
     {
         return call_user_func_array([Yii::$container->get("common.manager.breadcrumb"),"breadcrumb"],func_get_args());
     }
-    public function breadcrumbRender(){
-        return Yii::$container->get("common.manager.breadcrumb")->breadcrumbRender();
+    public function breadcrumbRender($idService = "common.manager.breadcrumb"){
+        return Yii::$container->get($idService)->breadcrumbRender();
     }
 
     public function getName() {
