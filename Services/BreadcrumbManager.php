@@ -49,16 +49,26 @@ class BreadcrumbManager {
             if(is_array($arg)){
                 $count = count($arg);
                 if($count > 1){
-                    throw new LogicException('The array elment must be one, count');
-                }
-                foreach ($arg as $key => $value) {
-                    $item->link = $key;
-                    $item->label = $value;
+                    foreach ($arg as $key => $value) {
+                        $item = new stdClass();
+                        $item->link = null;
+                        $item->label = null;
+                        $item->link = $key;
+                        $item->label = $value;
+                        $parameters[] = $item;
+                    }
+                }else{
+                    foreach ($arg as $key => $value) {
+                        $item->link = $key;
+                        $item->label = $value;
+                        $parameters[] = $item;
+                    }
                 }
             }else{
                 $item->label = $arg;
+                $parameters[] = $item;
             }
-            $parameters[] = $item;
+            
         }
         
         if($this->breadcrumbs === null){
