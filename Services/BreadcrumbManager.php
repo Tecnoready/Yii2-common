@@ -50,16 +50,22 @@ class BreadcrumbManager {
                 $count = count($arg);
                 if($count > 1){
                     foreach ($arg as $key => $value) {
+                        $link = $key;
+                        if(is_int($key)){
+                            $link = null;
+                        }
                         $item = new stdClass();
-                        $item->link = null;
-                        $item->label = null;
-                        $item->link = $key;
+                        $item->link = $link;
                         $item->label = $value;
                         $parameters[] = $item;
                     }
                 }else{
                     foreach ($arg as $key => $value) {
-                        $item->link = $key;
+                        $link = $key;
+                        if(is_int($key)){
+                            $link = null;
+                        }
+                        $item->link = $link;
                         $item->label = $value;
                         $parameters[] = $item;
                     }
