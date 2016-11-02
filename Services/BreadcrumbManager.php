@@ -25,12 +25,14 @@ class BreadcrumbManager {
     
     private $options;
     private $breadcrumbs;
+    private $mainIcon = null;
     
     public function __construct(array $options = array()) {
         //$basePath = dirname(dirname(__DIR__));
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
-           "twig.breadcrumb.template" => "@vendor/tecnoready/yii2-common/Views/twig/breadcrumb.twig"
+           "twig.breadcrumb.template" => "@vendor/tecnoready/yii2-common/Views/twig/breadcrumb.twig",
+           "prefix_icon" => null,
         ]);
         $this->options = $resolver->resolve($options);
     }
@@ -88,11 +90,22 @@ class BreadcrumbManager {
     public function breadcrumbRender(){
         $template = $this->options["twig.breadcrumb.template"];
         $breadcrumbs = $this->breadcrumbs;
+        $mainIcon = null;
+        if($this->mainIcon){
+            $mainIcon = $this->options["prefix_icon"]." ".$this->mainIcon;
+        }
         $this->breadcrumbs = [];
+        $this->mainIcon = null;
         return Yii::$container->get("twig")->render($template, 
             array(
                 'breadcrumbs' => $breadcrumbs,
+                'main_icon' => $mainIcon,
             )
         );
+    }
+    
+    public function setMainIcon($mainIcon) {
+        $this->mainIcon = $mainIcon;
+        return $this;
     }
 }
